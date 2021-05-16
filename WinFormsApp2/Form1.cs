@@ -12,10 +12,58 @@ namespace WinFormsApp2
 {
     public partial class Form1 : Form
     {
+
+        
+        AgenciaManager inicializar = new AgenciaManager();
+        int cont = 0;
+
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent();          
+            
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+       
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+
+            if ( string.IsNullOrEmpty(textBox1.Text) || string.IsNullOrEmpty(textBox2.Text))
+                {
+                MessageBox.Show("So boludo completa los datos");
+                } 
+            else if (textBox1.Text != null && textBox2 != null)
+                 {
+
+                string codigo = textBox1.Text;
+                string password = textBox2.Text;
+
+                if (cont < 3)
+                {
+                    inicializar.autenticarUsuario(codigo, password);
+                    cont++;
+                    MessageBox.Show("Usuario y/o clave incorrectos." + cont);
+
+                }else if (cont == 3)
+                {
+                MessageBox.Show("Error en validacion, contacte con administrador");
+                Application.Exit();
+                }
+
+
+            }
+
+
+
+        }
     }
 }

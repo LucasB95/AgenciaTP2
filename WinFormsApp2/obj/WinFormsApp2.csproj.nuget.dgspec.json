@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lu_kp\\source\\repos\\WinFormsApp2\\WinFormsApp2\\WinFormsApp2.csproj": {}
+    "C:\\Users\\lu_kp\\OneDrive\\Escritorio\\AgenciaTP2\\WinFormsApp2\\WinFormsApp2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lu_kp\\source\\repos\\WinFormsApp2\\WinFormsApp2\\WinFormsApp2.csproj": {
+    "C:\\Users\\lu_kp\\OneDrive\\Escritorio\\AgenciaTP2\\WinFormsApp2\\WinFormsApp2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lu_kp\\source\\repos\\WinFormsApp2\\WinFormsApp2\\WinFormsApp2.csproj",
+        "projectUniqueName": "C:\\Users\\lu_kp\\OneDrive\\Escritorio\\AgenciaTP2\\WinFormsApp2\\WinFormsApp2.csproj",
         "projectName": "WinFormsApp2",
-        "projectPath": "C:\\Users\\lu_kp\\source\\repos\\WinFormsApp2\\WinFormsApp2\\WinFormsApp2.csproj",
+        "projectPath": "C:\\Users\\lu_kp\\OneDrive\\Escritorio\\AgenciaTP2\\WinFormsApp2\\WinFormsApp2.csproj",
         "packagesPath": "C:\\Users\\lu_kp\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lu_kp\\source\\repos\\WinFormsApp2\\WinFormsApp2\\obj\\",
+        "outputPath": "C:\\Users\\lu_kp\\OneDrive\\Escritorio\\AgenciaTP2\\WinFormsApp2\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lu_kp\\AppData\\Roaming\\NuGet\\NuGet.Config",

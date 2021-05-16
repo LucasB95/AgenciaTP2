@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace WinFormsApp2
@@ -7,8 +8,8 @@ namespace WinFormsApp2
     class AgenciaManager
     {
         private Agencia miAgencia;
-        private List<Usuario> misUsuarios;
-        private List<Reserva> misReservas;
+        private List<Usuario> misUsuarios = new List<Usuario> { };
+        private List<Reserva> misReservas = new List<Reserva> { };
 
 
         //List<List<string>> este seria el tipo buscarAlojamiento
@@ -42,13 +43,14 @@ namespace WinFormsApp2
 
         public bool modificarAlojamiento(Alojamiento aloj)
         {
+
             if(miAgencia.modificarAlojamiento(aloj))
             {
                 return true;
             }
             return false;
         }
-
+         
         public bool quitarAlojamiento(Alojamiento aloj)
         {
             if (miAgencia.eliminarAlojamiento(aloj))
@@ -58,7 +60,7 @@ namespace WinFormsApp2
             return false;
         }
 
-        public List<Usuario> buscarReserva(int DNIusuario)
+        public List<Usuario> buscarReserva(string DNIusuario)
         {
             List<Usuario> usuarios = new List<Usuario> { };
             foreach(Usuario a in misUsuarios)
@@ -71,27 +73,91 @@ namespace WinFormsApp2
             return usuarios;
         }
 
-        public bool reservar(int codAloj, int dniUsuario, Datetime Fdesde, Datetime Fhasta)
+        public bool reservar(int codAloj, int dniUsuario, DateTime Fdesde, DateTime Fhasta)
         {
+
+            Reserva prueba = new Reserva();
+            prueba.setFDesde(Fdesde);
+            prueba.setFHasta(Fhasta);
+           
+
+            misReservas.Add(prueba);
+
+            bool reserva = true;
+            foreach(Reserva reser in misReservas)
+            {
+                if((reser.getFDesde() == Fdesde) && (reser.getFHasta() == Fhasta))
+                {
+                    reserva = false;
+                }
+                else
+                {
+                    reserva = true;
+                }
+                
+            }
+                    if (reserva == true)
+                    {
+                        misReservas.Add(prueba);
+                    }
+
+                    return reserva;
 
         }
-
-        public bool modificarReserva() // Datos de Reserva
+        
+        public bool modificarReserva(Reserva reservaNueva, int idAModificar) // Datos de Reserva
         {
-
+            bool reserv = false;
+            foreach (Reserva reser in misReservas)
+            {
+                if (idAModificar == reser.getID())
+                {
+                    misReservas.Remove(reser);
+                    misReservas.Add(reservaNueva);
+                    reserv = true;
+                }
+            }
+            return reserv;
         }
 
         public bool eliminarReserva(int codigo)
         {
+            foreach (Reserva reser in misReservas)
+            {
+                if (reser.getID() == codigo)
+                {
+                    misReservas.Remove(reser);
+                    return true;
+                }
+
+
+            }
+            return false;
 
         }
 
-        public bool auntenticarUsuario(int DNI, string password)
+        public bool autenticarUsuario( string DNI, string password)
         {
 
+
+            for( int i = 0; i< misUsuarios.Count(); i++)
+            {
+                if (misUsuarios[i].getDNI() == DNI && misUsuarios[i].getPassword() == password) ;
+                {
+                    return true;
+                }
+            }
+            //foreach (Usuario usu in misUsuarios)
+            //{
+            //    if (usu.getDNI() == DNI && usu.getPassword() == password)
+            //    {
+            //        return true;
+            //    }
+            //}
+            return false;
         }
 
 
 
-     }
+    }
 }

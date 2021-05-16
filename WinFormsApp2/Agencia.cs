@@ -20,16 +20,19 @@ namespace WinFormsApp2
         public bool insertarAlojamiento(Alojamiento aloj)
         {
             foreach (Alojamiento a in misAlojamientos)
-                if (a.igualCodigo(aloj))
-                    return false;
             
-            misAlojamientos.Add(aloj);
+                if (a != null && a.igualCodigo(aloj))
+                
+                return false;
+
+               misAlojamientos.Add(aloj);
+                                                 
             return true;
         }
         public bool estaAlojamiento(Alojamiento aloj)
         {
             foreach (Alojamiento a in misAlojamientos)
-                if (a.igualCodigo(aloj))
+                if ( a.igualCodigo(aloj))
                     return true;
            
             return false;
@@ -109,26 +112,28 @@ namespace WinFormsApp2
 
 
         // esto antes no funcionaba esperando respuesta del profe
-        //public Agencia alojamientosEntrePrecios(float d, float h)
-        //{
-        //    Agencia Salida = new Agencia(this.cantAlojamientos);
-                   
-        //    foreach (Alojamiento a in misAlojamientos)
-        //        if (a is Cabaña)
-        //        {
-        //            Cabaña c = (Cabaña)a;
-        //            if (c.getPrecioPorPersona() <= h && c.getPrecioPorPersona() >= d)
-        //                Salida.insertarAlojamiento(c);
-        //        }
-        //        else if (a is Hotel)
-        //        {
-        //            Hotel t = (Hotel) a;
-        //            if (t.getPrecioPorPersona() <= h && t.getPrecioPorPersona() >= d)
-        //                Salida.insertarAlojamiento(t);
-        //        }
+        public Agencia alojamientosEntrePrecios(float d, float h)
+        {
+            Agencia Salida = new Agencia(this.cantAlojamientos);
 
-        //    return Salida;
-        //}
+            foreach (Alojamiento a in misAlojamientos)
+                if (a is Cabaña)
+                {
+                    Cabaña c = (Cabaña)a;
+                    if (c.getPrecioPorPersona() <= h && c.getPrecioPorPersona() >= d)
+                        Salida.insertarAlojamiento(c);
+                    Console.WriteLine(c.ToString());
+                }
+                else if (a is Hotel)
+                {
+                    Hotel t = (Hotel)a;
+                    if (t.getPrecioPorPersona() <= h && t.getPrecioPorPersona() >= d)
+                        Salida.insertarAlojamiento(t);
+                    Console.WriteLine(t.ToString());
+                }
+
+            return Salida;
+        }
 
 
         public int getCantidad() { return cantAlojamientos; }

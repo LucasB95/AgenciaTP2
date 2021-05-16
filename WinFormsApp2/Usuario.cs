@@ -6,28 +6,26 @@ namespace WinFormsApp2
 {
     class Usuario
     {
-        private int DNI;
+        private string DNI;
         private string Nombre;
         private string Mail;
         private string Password;
         private bool esAdmin;
         private bool bloqueado;
 
-        public Usuario(int DNI, string nom, string mail, string pass,bool adm,bool bloq)
+        public Usuario(string DNI, string nom, string mail, string pass)
         {
             this.DNI = DNI;
             Nombre = nom;
             Mail = mail;
-            Password = pass;
-            esAdmin = adm;
-            bloqueado = bloq;
+            Password = pass;            
         }
 
-        public void setDNI(int dni)
+        public void setDNI(string dni)
         {
             DNI = dni;
         }
-        public int getDNI()
+        public string getDNI()
         {
             return DNI;
         }
