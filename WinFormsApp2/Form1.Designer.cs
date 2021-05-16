@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace WinFormsApp2
 {
     partial class Form1
@@ -7,6 +9,7 @@ namespace WinFormsApp2
         ///  Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+        
 
         /// <summary>
         ///  Clean up any resources being used.
@@ -46,7 +49,7 @@ namespace WinFormsApp2
             this.button1.TabIndex = 0;
             this.button1.Text = "Agregar Usuario";
             this.button1.UseVisualStyleBackColor = true;
-            //this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -56,6 +59,7 @@ namespace WinFormsApp2
             this.button2.TabIndex = 1;
             this.button2.Text = "Cambiar Contraseña";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
@@ -115,6 +119,7 @@ namespace WinFormsApp2
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "U";
             this.ResumeLayout(false);
             this.PerformLayout();

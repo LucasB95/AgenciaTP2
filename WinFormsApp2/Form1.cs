@@ -16,6 +16,7 @@ namespace WinFormsApp2
         
         AgenciaManager inicializar = new AgenciaManager();
         int cont = 0;
+        List<Usuario> usuarioForm1 = new List<Usuario> { };
 
         public Form1()
         {
@@ -39,8 +40,8 @@ namespace WinFormsApp2
 
             if ( string.IsNullOrEmpty(textBox1.Text) || string.IsNullOrEmpty(textBox2.Text))
                 {
-                MessageBox.Show("So boludo completa los datos");
-                } 
+                MessageBox.Show("No se completaron los datos");
+            } 
             else if (textBox1.Text != null && textBox2 != null)
                  {
 
@@ -64,6 +65,20 @@ namespace WinFormsApp2
 
 
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            AgregarUsuario agregarUsuario = new AgregarUsuario();
+            agregarUsuario.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            CambiarContraseña cambiarContraseña = new CambiarContraseña();
+            cambiarContraseña.Show();
         }
     }
 }

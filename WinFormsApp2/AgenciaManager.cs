@@ -39,6 +39,7 @@ namespace WinFormsApp2
             }
             return false;
         }
+      
 
 
         public bool modificarAlojamiento(Alojamiento aloj)

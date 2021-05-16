@@ -17,7 +17,12 @@ namespace WinFormsApp2
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1()); 
+            Application.Run(new Form1());
+
+            //Usuario usuario1 = new Usuario("39104528", "Lucas", "basualdo1995@gmail.com", "123456");
+            //usuario1.insertarUsuario(usuario1);
+
+           
         }
     }
 }

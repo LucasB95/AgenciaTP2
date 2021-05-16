@@ -12,15 +12,38 @@ namespace WinFormsApp2
         private string Password;
         private bool esAdmin;
         private bool bloqueado;
+        List<Usuario> usuarios = new List<Usuario> { };
 
         public Usuario(string DNI, string nom, string mail, string pass)
         {
             this.DNI = DNI;
             Nombre = nom;
             Mail = mail;
-            Password = pass;            
+            Password = pass;  
+            
+           
+        }
+        public Usuario()
+        {
+           
         }
 
+        public bool insertarUsuario(Usuario usu)
+        {
+            foreach (Usuario a in usuarios)
+
+                if (a != null && a.getDNI() != usu.getDNI())
+                {
+                   
+                    usuarios.Add(usu);                    
+                    return true;
+
+                }                   
+
+            return false;
+        }
+
+      
         public void setDNI(string dni)
         {
             DNI = dni;
@@ -70,6 +93,10 @@ namespace WinFormsApp2
             return bloqueado;
         }
 
+        override public String ToString()
+        {
+            return "DNI :" + DNI + "\nNombre :" + Nombre + "\nMail :" + Mail;
+        }
 
     }
 }
