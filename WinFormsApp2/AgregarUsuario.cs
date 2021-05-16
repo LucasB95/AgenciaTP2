@@ -41,7 +41,7 @@ namespace WinFormsApp2
             }
             else if (textBox1.Text != null && textBox2 != null && textBox3.Text != null && textBox4.Text != null)
             {
-
+            
 
                 string DNI = textBox1.Text;
                 string nom = textBox2.Text;
@@ -57,10 +57,10 @@ namespace WinFormsApp2
                     usuarios.Add(usuarioAgregado);
                     MessageBox.Show("Usuario creado con exito :" + nom);
 
-                    //this.Hide();
-                    //Form1 login = new Form1();
-                    //login.Show();
-                 
+                    this.Hide();
+                    Form1 login = new Form1();
+                    login.Show();
+
                 }
                 else
                 {
