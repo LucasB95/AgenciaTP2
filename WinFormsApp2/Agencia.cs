@@ -2,14 +2,27 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.IO;
 
 namespace WinFormsApp2
 {
     class Agencia
     {
-        private List<Alojamiento> misAlojamientos;
-        private int cantAlojamientos;
-        private List<Usuario> misUsuarios;
+        public List<Alojamiento> misAlojamientos;
+        public int cantAlojamientos;
+        public List<Usuario> misUsuarios;
+        public AgenciaManager ag;
+
+        static string sourcePath = @"C:\Users\lu_kp\OneDrive\Escritorio\AgenciaTP2";
+
+        static string targetPath = @"C:\Users\lu_kp\OneDrive\Escritorio\AgenciaTP2\Archivos";
+
+        static string Alojamientos = "Alojamientos.txt";
+
+        string sourceFileAloj = System.IO.Path.Combine(sourcePath, Alojamientos);
+
+        string destFileAloj = System.IO.Path.Combine(targetPath, Alojamientos);
+
 
         public Agencia(int CantidadAlojamientos)
         {
@@ -25,10 +38,22 @@ namespace WinFormsApp2
                 
                 return false;
 
-               misAlojamientos.Add(aloj);
+            misAlojamientos.Add(aloj);
+            archivoAlojamiento();
                                                  
             return true;
         }
+
+        public void archivoAlojamiento()
+        {
+            foreach (var prueba in misAlojamientos)
+            {
+                File.AppendAllText(Alojamientos, prueba.ToString() + Environment.NewLine);
+
+            }
+
+        }
+
         public bool estaAlojamiento(Alojamiento aloj)
         {
             foreach (Alojamiento a in misAlojamientos)
@@ -39,31 +64,77 @@ namespace WinFormsApp2
         }
 
 
-        public bool eliminarAlojamiento(Alojamiento aloj) { 
-            foreach(Alojamiento a in misAlojamientos)
+        public bool eliminarAlojamiento(Alojamiento aloj)
+        {
+
+            StreamReader lectura = File.OpenText(Alojamientos);
+            string cadena = lectura.ReadLine();
+            bool encontrado = false;
+            char delimitador = ',';
+            StreamWriter escribir = File.CreateText("tempAloj.txt");
+            string[] alojamientos;
+
+            while (cadena != null)
             {
-                if (a.igualCodigo(aloj))
+                alojamientos = cadena.Split(delimitador);
+                if (alojamientos[0] == Convert.ToString(aloj.getCodigo()))
                 {
-                    misAlojamientos.Remove(aloj);
-                    return true;
+                    encontrado = true;
                 }
+                else
+                {
+                    escribir.WriteLine(cadena);
+                }
+                cadena = lectura.ReadLine();
             }
-            return false;
+
+
+            escribir.Close();
+
+
+            lectura.Close();
+
+            File.Delete(Alojamientos);
+            File.Move("tempAloj.txt", Alojamientos);
+
+            return encontrado;
+
         }
 
         public bool modificarAlojamiento (Alojamiento aloj)
         {
-            foreach(Alojamiento a in misAlojamientos)
-            {
-                if (a.igualCodigo(aloj))
-                {
-                    misAlojamientos.Remove(aloj);
-                    misAlojamientos.Add(aloj);
 
+            StreamReader lectura = File.OpenText(Alojamientos);
+            string cadena = lectura.ReadLine();
+            bool encontrado = false;
+            char delimitador = ',';
+            StreamWriter escribir = File.CreateText("tempAloj.txt");
+
+            string[] alojamientos;
+
+            while (cadena != null)
+            {
+                alojamientos = cadena.Split(delimitador);
+                if (alojamientos[0] == Convert.ToString(aloj.getCodigo()))
+                {
+                    
+                        encontrado = true;
+                               
                 }
-                   return true;
+                else
+                {
+                    escribir.WriteLine(cadena + Environment.NewLine);
+                }
+                cadena = lectura.ReadLine();
             }
-            return false;
+
+            escribir.Close();
+            lectura.Close();
+
+            File.Delete(Alojamientos);
+            File.Move("tempAloj.txt", Alojamientos);
+
+            return encontrado;
         }
 
         public List<Alojamiento> getAloj()

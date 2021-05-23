@@ -12,11 +12,12 @@ namespace WinFormsApp2
     {
        
         static List<Usuario> usuarios = new List<Usuario> { };
-      
-
+        AgenciaManager ag = new AgenciaManager();
+       
+          
         public AgregarUsuario()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -34,7 +35,6 @@ namespace WinFormsApp2
         private void button2_Click(object sender, EventArgs e)
         {
 
-
             if (string.IsNullOrEmpty(textBox1.Text) || string.IsNullOrEmpty(textBox2.Text) || string.IsNullOrEmpty(textBox3.Text) || string.IsNullOrEmpty(textBox4.Text))
             {
                 MessageBox.Show("No se completaron los datos");
@@ -49,12 +49,15 @@ namespace WinFormsApp2
                 string pass = textBox4.Text;
 
                 Usuario usuarioAgregado = new Usuario(DNI, nom, mail, pass);
+                //usuarios = ag.misUsuarios;
 
-
-                if (!usuarios.Exists(x => x.getDNI().Contains(textBox1.Text)))
+                if (!ag.misUsuarios.Exists(x => x.getDNI().Contains(textBox1.Text)))
                 {
-                    
-                    usuarios.Add(usuarioAgregado);
+
+                    ag.insertarUsuario(usuarioAgregado);
+                    //usuarios = ag.misUsuarios;
+                    //ag.misUsuarios.Add(usuarioAgregado);
+                    //usuarios.Add(usuarioAgregado);
                     MessageBox.Show("Usuario creado con exito :" + nom);
 
                     this.Hide();
@@ -66,6 +69,9 @@ namespace WinFormsApp2
                 {
                     MessageBox.Show("Ya existen datos con el DNI");
                 }
+
+                
+
             }
         }
 

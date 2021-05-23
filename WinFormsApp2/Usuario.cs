@@ -19,8 +19,9 @@ namespace WinFormsApp2
             this.DNI = DNI;
             Nombre = nom;
             Mail = mail;
-            Password = pass;  
-            
+            Password = pass;
+            bloqueado = true;
+            esAdmin = false;
            
         }
         public Usuario()
@@ -51,6 +52,10 @@ namespace WinFormsApp2
         public string getDNI()
         {
             return DNI;
+        }
+        public bool igualCodigoUsuario(Usuario a)
+        {
+            return DNI == a.getDNI();
         }
         public void setNombre(String nom)
         {
@@ -95,7 +100,7 @@ namespace WinFormsApp2
 
         override public String ToString()
         {
-            return "DNI :" + DNI + "\nNombre :" + Nombre + "\nMail :" + Mail;
+            return DNI + "," + Nombre + "," + Mail + "," + Password + "," + bloqueado + "," + esAdmin;
         }
 
     }

@@ -73,6 +73,7 @@ namespace WinFormsApp2
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 23);
             this.textBox1.TabIndex = 3;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // textBox2
             // 
@@ -111,11 +112,12 @@ namespace WinFormsApp2
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(201, 97);
+            this.label4.Location = new System.Drawing.Point(201, 107);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(38, 15);
             this.label4.TabIndex = 8;
             this.label4.Text = "label4";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // CambiarContraseña
             // 
@@ -149,6 +151,6 @@ namespace WinFormsApp2
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label4;
+        public System.Windows.Forms.Label label4;
     }
 }

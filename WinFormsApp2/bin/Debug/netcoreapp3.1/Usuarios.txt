@@ -1,0 +1,4 @@
+39104528,Lucas,basualdo1995@gmail.com,123456,True,False
+39104528,Lucas,basualdo1995@gmail.com,123456,True,False
+98765432,Oscar,@,123456,True,False
+39104528,lucas,@,123456,True,False

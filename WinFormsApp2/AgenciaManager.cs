@@ -1,18 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+
 
 namespace WinFormsApp2
 {
     class AgenciaManager
     {
-        private Agencia miAgencia;
-        private List<Usuario> misUsuarios = new List<Usuario> { };
-        private List<Reserva> misReservas = new List<Reserva> { };
+        public Agencia miAgencia;
+        public List<Usuario> misUsuarios = new List<Usuario> { };
+        public List<Reserva> misReservas = new List<Reserva> { };
+        public int contInsertar = 0;
+
+        //string path = @"C:\Users\lu_kp\OneDrive\Escritorio\AgenciaTP2\Usuarios.txt";
+        //string usuarios = "Usuarios.txt";
+        //string destino = System.IO.Path.Combine(path, usuarios);
+
+        static string Usuarios = "Usuarios.txt";
+
+        static string sourcePath = @"C:\Users\lu_kp\OneDrive\Escritorio\AgenciaTP2";
+
+        static string targetPath = @"C:\Users\lu_kp\OneDrive\Escritorio\AgenciaTP2\Archivos";
+
+        string sourceFile = System.IO.Path.Combine(sourcePath, Usuarios);
+
+        string destFile = System.IO.Path.Combine(targetPath, Usuarios);
+
+        //static string Alojamientos = "Alojamientos.txt";
+
+        //string sourceFileAloj = System.IO.Path.Combine(sourcePath, Alojamientos);
+
+        //string destFileAloj = System.IO.Path.Combine(targetPath, Alojamientos);
+
+        static string Reservas = "Reservas.txt";
+
+        string sourceFileReser = System.IO.Path.Combine(sourcePath, Reservas);
+
+        string destFileReser = System.IO.Path.Combine(targetPath, Reservas);
 
 
-        //List<List<string>> este seria el tipo buscarAlojamiento
+
         public List<Alojamiento> buscarAlojamiento(String Ciudad, DateTime Pdesde, DateTime Phasta, int cantPersonas, String Tipo ) 
         {
             List<Alojamiento> aloj = new List<Alojamiento> { };
@@ -31,6 +60,204 @@ namespace WinFormsApp2
             return aloj;
         }
 
+        public bool insertarUsuario(Usuario usu)
+        {
+            foreach (Usuario a in misUsuarios)
+                if (a.igualCodigoUsuario(usu))
+                    return false;
+
+            misUsuarios.Add(usu);
+            archivoUsuarios();
+            contInsertar++;
+            return true;
+        }
+
+
+        public void archivoUsuarios()
+        {
+            foreach (var prueba in misUsuarios)
+            {
+                File.AppendAllText(Usuarios, prueba.ToString() + Environment.NewLine);
+                
+            }
+           
+        }
+
+        public List<Usuario> getUsuarios()
+        {
+            return misUsuarios;
+        }
+
+        public bool modificaUsuario(string dni, string passv, string passn, string passnc)
+        {
+
+            StreamReader lectura = File.OpenText(Usuarios);
+            string cadena = lectura.ReadLine();
+            bool encontrado = false;
+            char delimitador = ',';
+            StreamWriter escribir = File.CreateText("temp.txt");
+
+            string[] usuario;
+
+            while (cadena != null)
+            {
+                usuario = cadena.Split(delimitador);
+                if (usuario[0] == dni && usuario[3] == passv)
+                {
+                    if (passn == passnc)
+                    {
+                        usuario[3] = passn;
+                        encontrado = true;
+
+                    }
+
+                }
+                else
+                {
+                    escribir.WriteLine(cadena + Environment.NewLine);
+                }
+                    cadena = lectura.ReadLine();
+                }
+      
+                escribir.Close();
+                lectura.Close();
+
+                File.Delete(Usuarios);
+                File.Move("temp.txt", Usuarios);
+
+                return encontrado;
+                        
+        }
+
+        public bool autenticarUsuario(string DNI, string password)
+        {
+           
+           StreamReader lectura = File.OpenText(Usuarios);
+           string cadena = lectura.ReadLine();
+           
+
+            bool encontrado = false;
+            char delimitador = ',';
+
+            string[] usuario;
+
+            
+            if (cadena != null)
+            {
+                usuario = cadena.Split(delimitador);
+
+                if (usuario[0] == DNI && usuario[3] == password)
+                {
+                    encontrado = true;
+                }
+
+            }
+
+            lectura.Close();
+
+            return encontrado;
+
+
+        }
+        public bool autenticarUsuarioAdmin(string DNI, string password)
+        {
+
+            StreamReader lectura = File.OpenText(Usuarios);
+            string cadena = lectura.ReadLine();
+            bool encontrado = false;
+            char delimitador = ',';
+
+            string[] usuario;
+
+
+
+            if (cadena != null)
+            {
+                usuario = cadena.Split(delimitador);
+
+                if (usuario[0] == DNI && usuario[3] == password)
+                {
+                    if(usuario[5] == "True")
+                    {
+                        encontrado = true;
+                    }
+                }
+
+            }
+
+            lectura.Close();
+
+            return encontrado;
+
+        }
+
+        public bool desbloquearUsuario(Usuario usu)
+        {
+            foreach(Usuario a in misUsuarios)
+            {
+                if(a != null && a.getBloqueado() != true)
+                {                    
+                    usu.setBloqueado(true);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool bloquearUsuario(string dni)
+        {
+            foreach (Usuario a in misUsuarios)
+            {
+                if (a != null && a.getDNI() == dni)
+                {
+                    misUsuarios.Remove(a);
+                    a.setBloqueado(false);
+                    misUsuarios.Add(a);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool eliminarUsuario(string dni) 
+        {
+
+            StreamReader lectura = File.OpenText(Usuarios);
+            string cadena = lectura.ReadLine();
+            bool encontrado = false;
+            char delimitador = ',';
+            StreamWriter escribir = File.CreateText("temp.txt");
+            
+            string[] usuario;
+
+            while(cadena != null)
+            {
+                usuario = cadena.Split(delimitador);
+                if (usuario[0] == dni)
+                {
+                    encontrado = true;
+                }
+                else
+                {
+                    escribir.WriteLine(cadena);
+                }
+                cadena = lectura.ReadLine();
+            }
+
+
+            escribir.Close();
+
+
+            lectura.Close();
+
+            File.Delete(Usuarios);
+            File.Move("temp.txt", Usuarios);
+
+            return encontrado;
+
+
+        }
+
         public bool agregarAlojamiento(Alojamiento aloj)
         {
            if (miAgencia.insertarAlojamiento(aloj))
@@ -39,7 +266,16 @@ namespace WinFormsApp2
             }
             return false;
         }
-      
+
+        //public void archivoAlojamiento()
+        //{
+        //    foreach (var prueba in miAgencia.misAlojamientos)
+        //    {
+        //        File.AppendAllText(Alojamientos, prueba.ToString() + Environment.NewLine);
+
+        //    }
+
+        //}
 
 
         public bool modificarAlojamiento(Alojamiento aloj)
@@ -137,26 +373,7 @@ namespace WinFormsApp2
 
         }
 
-        public bool autenticarUsuario( string DNI, string password)
-        {
-
-
-            for( int i = 0; i< misUsuarios.Count(); i++)
-            {
-                if (misUsuarios[i].getDNI() == DNI && misUsuarios[i].getPassword() == password) ;
-                {
-                    return true;
-                }
-            }
-            //foreach (Usuario usu in misUsuarios)
-            //{
-            //    if (usu.getDNI() == DNI && usu.getPassword() == password)
-            //    {
-            //        return true;
-            //    }
-            //}
-            return false;
-        }
+        
 
 
 

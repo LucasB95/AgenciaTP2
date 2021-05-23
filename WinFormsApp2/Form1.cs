@@ -17,16 +17,16 @@ namespace WinFormsApp2
         AgenciaManager inicializar = new AgenciaManager();
         int cont = 0;
         List<Usuario> usuarioForm1 = new List<Usuario> { };
+        public string usuario;
 
         public Form1()
         {
-            InitializeComponent();          
-            
+            InitializeComponent(); 
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-       
+           
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -50,22 +50,43 @@ namespace WinFormsApp2
 
                 if (cont < 3)
                 {
-                    inicializar.autenticarUsuario(codigo, password);
-                    cont++;
-                    MessageBox.Show("Usuario y/o clave incorrectos." + cont);
+                    if(inicializar.autenticarUsuario(codigo, password) == true)
+                    {
+                        if (inicializar.autenticarUsuarioAdmin(codigo, password) == true)
+                        {
+                            this.Hide();
+                            ProgramaIniciadoAdmin programaIniciadoAdmin = new ProgramaIniciadoAdmin();
+                            programaIniciadoAdmin.Show();
+                        }
+                        else if (inicializar.autenticarUsuarioAdmin(codigo, password) == false)
+                        {
+
+                            this.Hide();
+                            ProgramaIniciado programaIniciado = new ProgramaIniciado();
+                            programaIniciado.Show();
+                        }
+
+                        
+                      
+                    }
+                    else
+                    {
+                        cont++;
+                        MessageBox.Show("Usuario y/o clave incorrectos." + cont);
+                        
+                    }
+                   
 
                 }else if (cont == 3)
                 {
                 MessageBox.Show("Error en validacion, contacte con administrador");
+                inicializar.bloquearUsuario(codigo);
                 Application.Exit();
                 }
 
-
             }
 
-
-
-        }
+           }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -76,9 +97,14 @@ namespace WinFormsApp2
 
         private void button2_Click(object sender, EventArgs e)
         {
+            usuario = textBox1.Text;
+            //MessageBox.Show(usuario);
             this.Hide();
             CambiarContraseña cambiarContraseña = new CambiarContraseña();
             cambiarContraseña.Show();
+
+            cambiarContraseña.label4.Text =  textBox1.Text ;
+           
         }
     }
 }

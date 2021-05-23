@@ -8,16 +8,11 @@ using System.Windows.Forms;
 
 namespace WinFormsApp2
 {
-    public partial class ProgramaIniciado : Form
+    public partial class ProgramaIniciadoAdmin : Form
     {
-        public ProgramaIniciado()
+        public ProgramaIniciadoAdmin()
         {
             InitializeComponent();
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void label1_Click(object sender, EventArgs e)

@@ -11,10 +11,11 @@ namespace WinFormsApp2
     public partial class CambiarContraseña : Form
     {
 
-        List<Usuario> usu = new List<Usuario> { };
+        //List<Usuario> usu = new List<Usuario> { };
+        AgenciaManager ag = new AgenciaManager();
         public CambiarContraseña()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -34,43 +35,44 @@ namespace WinFormsApp2
             }
             else if (textBox1.Text != null && textBox2 != null && textBox3.Text != null)
             {
+                Form1 f1 = new Form1();
+                
+                string usuario = label4.Text;
+                string passViejo = textBox1.Text;
+                string passNuevoComprobacion = textBox2.Text;
+                string passNuevo = textBox3.Text;
 
+                //List<Usuario> usu = new List<Usuario> { };
 
-                string passNuevo = textBox1.Text;
-                string passViejo = textBox2.Text;
-                string passViejoComprobacion = textBox3.Text;
+                //MessageBox.Show(usuario);
 
-                List<Usuario> usu = new List<Usuario> { };
+                //ag.modificaUsuario(usuario,passNuevo,passNuevoComprobacion,passViejo);
 
-                //AgregarUsuario agregarUsuario = new AgregarUsuario();
+              if(ag.modificaUsuario(usuario, passViejo, passNuevoComprobacion, passNuevo) == true)
+                {
+                    MessageBox.Show("Modificacion Correcta");
+                }
+                else
+                {
+                    MessageBox.Show("Error");
 
-                //agregarUsuario.usuarios = CambiarContraseña.usu;
-                 
-               
-
-
-                //if (!usuarios.Exists(x => x.getDNI().Contains(textBox1.Text)))
-                //{
-
-                //    usuarios.Add(usuarioAgregado);
-                //    MessageBox.Show("Usuario creado con exito :" + nom);
-
-                //    //this.Hide();
-                //    //Form1 login = new Form1();
-                //    //login.Show();
-
-                //}
-                //else
-                //{
-                //    MessageBox.Show("Ya existen datos con el DNI");
-                //}
-
-
+                }                  
+                
             }
 
+        }
 
+        private void label4_Click(object sender, EventArgs e)
+        {
+        }
 
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
 
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }
